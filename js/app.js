@@ -5,7 +5,7 @@ import { renderHome, renderStory, renderSubmit } from "./views.js";
 function router() {
 
     const hash = location.hash;
-    console.log(`Location: ${hash}`);
+    console.log(`Location: ${hash || "#/home"}`);
 
     const app = document.getElementById("app");
     app.innerHTML = "";
@@ -16,8 +16,9 @@ function router() {
     else if (hash === "#/submit") {
         renderSubmit(app);
     }
-    else if (hash === "#/story") {
-        renderStory(app);
+    else if (hash.startsWith("#/story")) {
+        const id = hash.split("/")[2]; // get access to story's id like '#/story/1' etc.
+        renderStory(app, id);
     }
     else {
         renderHome(app);

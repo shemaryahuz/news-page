@@ -2,16 +2,17 @@
 
 export function renderHome(app) {
     console.log("rendering home...");
+
     const header = document.createElement("h1");
     app.appendChild(header);
-    header.innerText = "Home";
+    header.innerText = "News Site";
 }
 
-export function renderStory(app) {
+export function renderStory(app, id) {
     console.log("rendering story...");
     const header = document.createElement("h1");
     app.appendChild(header);
-    header.innerText = "Story";
+    header.innerText = `Story ${id}`;
 }
 
 export function renderSubmit(app) {
