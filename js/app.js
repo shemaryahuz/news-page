@@ -2,6 +2,23 @@
 
 import { renderHome, renderStory, renderSubmit } from "./views.js";
 
+function getNav() {
+    const nav = document.createElement("nav");
+
+    const homeLink = document.createElement("a");
+    homeLink.href = "#/home";
+    homeLink.innerText = "Home"
+
+    const submitLink = document.createElement("a");
+    submitLink.href = "#/submit";
+    submitLink.innerText = "Submit";
+
+    nav.appendChild(homeLink);
+    nav.appendChild(submitLink);
+
+    return nav;
+}
+
 function router() {
 
     const hash = location.hash;
@@ -9,6 +26,7 @@ function router() {
 
     const app = document.getElementById("app");
     app.innerHTML = "";
+    app.appendChild(getNav());
     
     if (hash === "#/home") {
         renderHome(app);
