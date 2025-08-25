@@ -1,8 +1,8 @@
-// functions to render the app views
+// functions to render the home page with news feed
 
-import { getArticles } from "./newsService.js";
+import { getArticles } from "../services/newsService.js";
 
-function addHeader(app) {
+export function addHeader(app) {
     const header = document.createElement("header");
     const h1 = document.createElement("h1");
     header.appendChild(h1);
@@ -13,29 +13,29 @@ function addHeader(app) {
 function getCard(article, id) {
 
     const card = document.createElement("article");
-    card.classList = "card";
+    card.classList = "news-card";
     card.id = id;
     
     const img = document.createElement("img");
     img.src = article.urlToImage;
     card.appendChild(img);
 
-    const title = document.createElement("section");
+    const title = document.createElement("h3");
     title.innerText = article.title;
     card.appendChild(title);
 
-    const time = document.createElement("section");
+    const time = document.createElement("p");
     const date = new Date(article.publishedAt);
     const niceDate = date.toLocaleString();
     time.innerText = niceDate;
     card.appendChild(time);
 
-    const author = document.createElement("section");
+    const author = document.createElement("p");
     author.classList = "author";
     author.innerText = article.author;
     card.appendChild(author);
 
-    const description = document.createElement("section");
+    const description = document.createElement("p");
     description.classList = "description";
     description.innerText = article.description;
     card.appendChild(description);
@@ -44,7 +44,9 @@ function getCard(article, id) {
 }
 
 function addNewsCards(feedContainer, articles) {
+
     for (let i = 0; i < articles.length; i++) {
+
         const card = getCard(articles[i], i);
         feedContainer.appendChild(card);
     }
@@ -62,17 +64,10 @@ export async function renderHome(app) {
     const articles = await getArticles();
     addNewsCards(feedContainer, articles);
 
-}
-
-export function renderStory(app, id) {
-    console.log("rendering story...");
-
-    addHeader(app).innerText = `Story ${id}`;
-}
-
-export function renderSubmit(app) {
-    console.log("rendering submit...");
-
-    addHeader(app).innerText = "Submit new story";
+    feedContainer.addEventListener("click", (event) => {
+        console.log(event.target.id);
+        const id = event.target.id;
+        location.hash = `#/story/${id}`;
+    });
 
 }
