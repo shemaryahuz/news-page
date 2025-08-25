@@ -23,4 +23,5 @@ TestResults.xml
 #.env
 .env
 #config
+config/
 config.js

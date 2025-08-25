@@ -40,7 +40,6 @@ async function router() {
     }
     else if (hash.startsWith("#/story")) {
         const id = hash.split("/")[2]; // get access to story's id like '#/story/1' etc.
-        console.log(id)
         await renderStory(app, id);
     }
     else {
