@@ -1,6 +1,8 @@
 // main script for manipulate the view on the page
 
-import { renderHome, renderStory, renderSubmit } from "./views.js";
+import { renderHome } from "./views/home.js";
+import { renderStory } from "./views/story.js";
+import { renderSubmit } from "./views/submit.js";
 
 function getNav() {
     const nav = document.createElement("nav");
@@ -38,7 +40,7 @@ async function router() {
     }
     else if (hash.startsWith("#/story")) {
         const id = hash.split("/")[2]; // get access to story's id like '#/story/1' etc.
-        renderStory(app, id);
+        await renderStory(app, id);
     }
     else {
         await renderHome(app);
