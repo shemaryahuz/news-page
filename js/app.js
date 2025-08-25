@@ -6,10 +6,12 @@ function getNav() {
     const nav = document.createElement("nav");
 
     const homeLink = document.createElement("a");
+    homeLink.classList = "navLink";
     homeLink.href = "#/home";
     homeLink.innerText = "Home"
 
     const submitLink = document.createElement("a");
+    submitLink.classList = "navLink";
     submitLink.href = "#/submit";
     submitLink.innerText = "Submit";
 
@@ -19,7 +21,7 @@ function getNav() {
     return nav;
 }
 
-function router() {
+async function router() {
 
     const hash = location.hash;
     console.log(`Location: ${hash || "#/home"}`);
@@ -27,9 +29,9 @@ function router() {
     const app = document.getElementById("app");
     app.innerHTML = "";
     app.appendChild(getNav());
-    
+
     if (hash === "#/home") {
-        renderHome(app);
+        await renderHome(app);
     }
     else if (hash === "#/submit") {
         renderSubmit(app);
@@ -39,10 +41,14 @@ function router() {
         renderStory(app, id);
     }
     else {
-        renderHome(app);
+        await renderHome(app);
     }
 }
 
-router();
+async function main() {
+    await router();
 
-window.addEventListener("hashchange", router);
+    window.addEventListener("hashchange", router);
+}
+
+main();
